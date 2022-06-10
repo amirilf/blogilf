@@ -6,3 +6,6 @@ def index_view(request):
 
 def about_view(request):
     return render(request,'about.html')
+
+def article_view(request):
+    return render(request,'article.html')

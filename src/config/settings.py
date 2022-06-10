@@ -146,4 +146,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # REDIRECTS
 
+LOGIN_REDIRECT_URL = 'blog:index'
 LOGIN_URL = 'account:login'

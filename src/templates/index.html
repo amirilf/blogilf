@@ -38,14 +38,26 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="about.html">About</a>
+                        <a href="/about">About</a>
                     </li>
-                    <li>
-                        <a href="login.html">Login</a>
-                    </li>
-                    <li>
-                        <a href="signup.html">Sign up</a>
-                    </li>
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a href="/blog/new">New article</a>
+                        </li>
+                        <li>
+                            <a href="/account/profile">Profile</a>
+                        </li>
+                        <li>
+                            <a href="/account/logout">Logout</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="/account/login">Login</a>
+                        </li>
+                        <li>
+                            <a href="/account/signup">Sign up</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -60,6 +72,11 @@
 
             <!-- Blog Entries Column -->
             <div class="col-md-12">
+                {% if user.is_authenticated %}
+                <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
+            {% else %}
+                <p>Welcome, new user. Please log in.</p>
+            {% endif %}
 
                 <!-- First Blog Post -->
                 <h2 class="post-title">

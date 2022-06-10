@@ -3,6 +3,15 @@ from django.contrib.auth import authenticate,logout, login
 from .forms import SignUpForm
 
 def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request,user)
+            return redirect('blog:index')
+        else:
+            return render(request, 'login.html', {'error':'The username or password are incorrect'})
     return render(request, 'login.html')
 
 

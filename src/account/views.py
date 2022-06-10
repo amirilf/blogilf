@@ -1,6 +1,19 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,logout, login
 from .forms import SignUpForm
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+
+
+# profile
+
+@login_required
+def profile_view(request):
+    return HttpResponse('profile')
+
+
+
+# auth
 
 def login_view(request):
     if request.method == 'POST':
@@ -13,7 +26,6 @@ def login_view(request):
         else:
             return render(request, 'login.html', {'error':'The username or password are incorrect'})
     return render(request, 'login.html')
-
 
 def sign_up_view(request):
     if request.method == 'POST':
@@ -28,7 +40,6 @@ def sign_up_view(request):
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
-
 
 def logout_view(request):
     logout(request)

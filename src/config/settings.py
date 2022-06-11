@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'account',
     'blog',
 
+    # Third party apps
+    'django_summernote',
+    
 ]
 
 

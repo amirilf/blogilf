@@ -9,7 +9,7 @@ class Article(models.Model):
     category   = models.ManyToManyField(Category,blank=True,related_name='articles') # article categories
     slug       = models.SlugField(max_length=100,unique=True)
     title      = models.CharField(max_length=200)
-    body_en    = models.TextField()
+    body       = models.TextField()
     status     = models.BooleanField(default=True)
     created    = models.DateTimeField(auto_now_add=True)
     updated    = models.DateTimeField(auto_now=True) # last update

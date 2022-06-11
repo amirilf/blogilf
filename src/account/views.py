@@ -41,9 +41,13 @@ def login_view(request):
         else:
             return render(request, 'login.html', {'error':'The username or password are incorrect'})
     else:
+        # GET method
         if request.user.is_authenticated:
+            # It's a logged in user so there is no need to show login page
             return redirect('blog:index')
-        return render(request, 'login.html')
+        else:
+            # It's an anonymous user
+            return render(request, 'login.html')
 
 def sign_up_view(request):
     if request.method == 'POST':

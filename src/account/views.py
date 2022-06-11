@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,logout, login
 from .forms import SignUpForm
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
 from django.utils.http import is_safe_url
 from django.conf import settings
 
@@ -40,7 +40,10 @@ def login_view(request):
             return safe_redirect_after_login(request)
         else:
             return render(request, 'login.html', {'error':'The username or password are incorrect'})
-    return render(request, 'login.html')
+    else:
+        if request.user.is_authenticated:
+            return redirect('blog:index')
+        return render(request, 'login.html')
 
 def sign_up_view(request):
     if request.method == 'POST':
@@ -57,5 +60,7 @@ def sign_up_view(request):
     return render(request, 'signup.html', {'form': form})
 
 def logout_view(request):
-    logout(request)
-    return redirect('blog:index')
+    if request.user.is_authenticated:
+        logout(request)
+        return redirect('blog:index')
+    raise Http404

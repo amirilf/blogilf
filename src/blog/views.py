@@ -9,3 +9,6 @@ def about_view(request):
 
 def article_view(request):
     return render(request,'article.html')
+
+def add_article_view(request):
+    return render(request,'new-article.html')

@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from account.models import User
 
 class SignUpForm(UserCreationForm):
+    
     first_name = forms.CharField(max_length=30, required=True,
                 widget=forms.TextInput(
         attrs={
@@ -24,7 +25,6 @@ class SignUpForm(UserCreationForm):
             'placeholder' : "Last name",
         }
     ))
-    
     email = forms.EmailField(max_length=254,required=True,
         widget=forms.EmailInput(
         attrs={
@@ -35,7 +35,6 @@ class SignUpForm(UserCreationForm):
             'placeholder' : "Email address",
         }
     ))
-
 
     class Meta:
         model = User

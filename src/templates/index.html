@@ -8,6 +8,19 @@
         {% else %}
             <p>Welcome, new user. Please log in.</p>
         {% endif %}
+        
+        {% for article in articles %}
+            <h2 class="post-title">
+                <a href="{% url 'blog:article' article.slug %}">{{ article.title }}</a>
+            </h2>
+            <p class="lead">
+                by {{ article.author }}
+            </p>
+            <p><span class="glyphicon glyphicon-time"></span> Posted on {{ article.created}}</p>
+            {{ article.body|safe }}
+            <hr>
+        {% endfor %}
+
         <!-- First Blog Post -->
         <h2 class="post-title">
             <a href="/article">Blog Post Title</a>
@@ -19,6 +32,8 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
         <a class="btn btn-default" href="/article">Read More</a>
         <hr>
+
+
         <!-- Second Blog Post -->
         <h2 class="post-title">
             <a href="/article">Blog Post Title</a>

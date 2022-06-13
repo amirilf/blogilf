@@ -5,9 +5,9 @@ class Category(models.Model):
     slug = models.SlugField(unique=True)
 
 class Article(models.Model):
-    author     = models.ForeignKey(User,editable=False,on_delete=models.CASCADE,related_name='articles')
+    author     = models.ForeignKey(User,on_delete=models.CASCADE,related_name='articles')
     category   = models.ManyToManyField(Category,blank=True,related_name='articles') # article categories
-    slug       = models.SlugField(max_length=100,unique=True)
+    slug       = models.SlugField(max_length=100)
     title      = models.CharField(max_length=200)
     body       = models.TextField()
     status     = models.BooleanField(default=True)

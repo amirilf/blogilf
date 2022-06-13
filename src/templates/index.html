@@ -11,51 +11,15 @@
         
         {% for article in articles %}
             <h2 class="post-title">
-                <a href="{% url 'blog:article' article.slug %}">{{ article.title }}</a>
+                <a href="{% url 'blog:article' username=article.author.username slug=article.slug %}">{{ article.title }}</a>
             </h2>
             <p class="lead">
-                by {{ article.author }}
+                by <a href="{% url 'blog:user' username=article.author.username %}">{{ article.author }}</a> 
             </p>
             <p><span class="glyphicon glyphicon-time"></span> Posted on {{ article.created}}</p>
-            {{ article.body|safe }}
             <hr>
         {% endfor %}
 
-        <!-- First Blog Post -->
-        <h2 class="post-title">
-            <a href="/article">Blog Post Title</a>
-        </h2>
-        <p class="lead">
-            by Author
-        </p>
-        <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
-        <a class="btn btn-default" href="/article">Read More</a>
-        <hr>
-
-
-        <!-- Second Blog Post -->
-        <h2 class="post-title">
-            <a href="/article">Blog Post Title</a>
-        </h2>
-        <p class="lead">
-            by Author
-        </p>
-        <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, quasi, fugiat, asperiores harum voluptatum tenetur a possimus nesciunt quod accusamus saepe tempora ipsam distinctio minima dolorum perferendis labore impedit voluptates!</p>
-        <a class="btn btn-default" href="/article">Read More</a>
-        <hr>
-        <!-- Third Blog Post -->
-        <h2 class="post-title">
-            <a href="/article">Blog Post Title</a>
-        </h2>
-        <p class="lead">
-            by Author
-        </p>
-        <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, voluptates, voluptas dolore ipsam cumque quam veniam accusantium laudantium adipisci architecto itaque dicta aperiam maiores provident id incidunt autem. Magni, ratione.</p>
-        <a class="btn btn-default" href="/article">Read More</a>
-        <hr>
         <!-- Pager -->
         <ul class="pager">
             <li class="previous">

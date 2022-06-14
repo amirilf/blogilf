@@ -37,20 +37,20 @@
                 <ul class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
                         <li>
-                            <a href="/new">New article</a>
+                            <a title="New Article" href="/new"><span class='glyphicon glyphicon-plus'></span> New</a>
                         </li>
                         <li>
-                            <a href="/account/profile">Profile</a>
+                            <a title="Profile" href="/account/profile"><span class='glyphicon glyphicon-user'></span> Profile</a>
                         </li>
                         <li>
-                            <a href="/account/logout">Logout</a>
+                            <a title="Logout" href="/account/logout"><span class='glyphicon glyphicon-log-out'></span></a>
                         </li>
                     {% else %}
                         <li>
-                            <a href="/account/login">Login</a>
+                            <a title="Login" href="/account/login"><span class='glyphicon glyphicon-log-in'></span> Login</a>
                         </li>
                         <li>
-                            <a href="/account/signup">Sign up</a>
+                            <a title="Sign up" href="/account/signup"><span class='glyphicon glyphicon-new-window'></span> Sign up</a>
                         </li>
                     {% endif %}
                 </ul>

@@ -1,2 +1,4 @@
 validate InputFile type and size
 add user profiles for each user with its username
+add reCAPTCHA to forms
+paginatoin for article lists

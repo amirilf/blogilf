@@ -7,7 +7,10 @@ class Category(models.Model):
 class Article(models.Model):
     author     = models.ForeignKey(User,on_delete=models.CASCADE,related_name='articles')
     category   = models.ManyToManyField(Category,blank=True,related_name='articles') # article categories
+
+    # Slug is unique but we set it up manually in the forms.py
     slug       = models.SlugField(max_length=100)
+    
     title      = models.CharField(max_length=200)
     body       = models.TextField()
     status     = models.BooleanField(default=True)

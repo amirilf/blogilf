@@ -12,7 +12,11 @@ class NewArticleForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
     def clean(self):
+        
         cleaned_data = self.cleaned_data
+
+        # This validation means that the user cant have the same slug for multiple articles
+        # But users can have articles with the same slug
         if Article.objects.filter(slug=cleaned_data['slug'],author=self.user.pk).exists():
             raise forms.ValidationError({'slug': ["Article with this slug already exists.",]})            
         return cleaned_data

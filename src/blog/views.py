@@ -31,7 +31,6 @@ def add_article_view(request):
             new_article.author = User.objects.get(pk=request.user.pk) 
             form.save()
             return redirect('blog:index')
-        print(form.errors)
     else:
         form = NewArticleForm(request.user)
     

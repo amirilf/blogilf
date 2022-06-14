@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Project apps
-    'account',
+    'accounts',
     'blog',
 
     # Third party apps
@@ -138,7 +138,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Custom User
 
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'accounts.User'
 
 
 # MEDIA
@@ -150,4 +150,4 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # REDIRECTS
 
 LOGIN_REDIRECT_URL = 'blog:index'
-LOGIN_URL = 'account:login'
+LOGIN_URL = 'accounts:login'

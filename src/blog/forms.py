@@ -1,7 +1,7 @@
 from django_summernote.widgets import SummernoteWidget
 from django import forms
 
-from account.models import User
+from accounts.models import User
 from .models import Article
 
 

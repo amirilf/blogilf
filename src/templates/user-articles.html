@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block loading %}
+{% endblock loading %}
+{% load humanize %}
+{% block title %} {{ author }} | Articles{% endblock title %}
+{% block row_content  %}
+
+<li>
+    <h3>Articles by <a href="{% url 'blog:user' username=author %}">{{ author }}</a>:</h3>
+    <hr>
+    {% for article in articles.all %}
+    <ul>
+        <h4 class="post-title">
+            <a href="{% url 'blog:article' username=author slug=article.slug %}">{{ article.title }}</a>
+        </h4>
+        <small><span class="glyphicon glyphicon-time"></span> Posted on  {{ article.created|date:'Y/m/d' }} ({{ article.created|naturalday:'h:i' }})</small>
+    </ul>
+    <hr>
+    {% endfor %}        
+</li>
+{% endblock row_content %}

@@ -9,7 +9,7 @@ from .forms import NewArticleForm
 
 def index_view(request):
 
-    articles = Article.objects.select_related('author').filter(status=True).order_by('-created')
+    articles = Article.objects.select_related('author').filter(status=True)
     context = {
         'articles':articles
     }
@@ -43,3 +43,13 @@ def user_view(request,username):
         'user_object':user
     }
     return render(request,'user.html',context)
+
+def user_articles_view(request,username):
+    print(username)
+    articles = Article.objects.filter(author__username=username)
+    print(articles)
+    context = {
+        'articles': articles,
+        'author'  : username,
+    }
+    return render(request,'user-articles.html',context)

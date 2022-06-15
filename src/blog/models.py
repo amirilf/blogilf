@@ -17,3 +17,6 @@ class Article(models.Model):
     created    = models.DateTimeField(auto_now_add=True)
     updated    = models.DateTimeField(auto_now=True) # last update
     thumbnail  = models.ImageField(upload_to='articles')
+
+    class Meta:
+        ordering = ('-created', )

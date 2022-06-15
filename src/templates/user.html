@@ -2,33 +2,33 @@
 {% block loading %}
 {% endblock loading %}
 {% load humanize %}
-{% block title %}User | {{ user.username }}{% endblock title %}
+{% block title %}User | {{ user_object.username }}{% endblock title %}
 {% block row_content  %}
 
 <li>
     <h3>User information:</h3>
-    <ul><p>Username : {{ user.username }}</p></ul>
+    <ul><p>Username : {{ user_object.username }}</p></ul>
     <ul>
-        {% if user.get_full_name %}
-        <p>Name : {{ user.get_full_name }}</p>
+        {% if user_object.get_full_name %}
+        <p>Name : {{ user_object.get_full_name }}</p>
         {% endif %}    </ul>
     <ul>
-        {% if user.bio %}
-        <p> Bio : {{ user.bio }}</p>
+        {% if user_object.bio %}
+        <p> Bio : {{ user_object.bio }}</p>
         {% endif %}        
     </ul>
     <ul>
-        <p>Date joined : {{ user.date_joined|date:'F d Y' }}</p>
+        <p>Date joined : {{ user_object.date_joined|date:'F d Y' }}</p>
     </ul>
 </li>
 
 <li>
-    <h3>Last Articles by {{ user.username }}:</h3>
+    <h3>Last Articles by {{ user_object.username }}:</h3>
     <hr>
-    {% for article in user.articles.all %}
+    {% for article in user_object.articles.all %}
     <ul>
         <h4 class="post-title">
-            <a href="{% url 'blog:article' username=article.author.username slug=article.slug %}">{{ article.title }}</a>
+            <a href="{% url 'blog:article' username=user_object.username slug=article.slug %}">{{ article.title }}</a>
         </h4>
         <small><span class="glyphicon glyphicon-time"></span> Posted on  {{ article.created|date:'Y/m/d' }} ({{ article.created|naturalday:'h:i' }})</small>
     </ul>

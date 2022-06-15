@@ -1,14 +1,9 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% block title %}Home{% endblock title %}
 {% block row_content  %}
     <!-- Blog Entries Column -->
-    <div class="col-md-12">
-        {% if user.is_authenticated %}
-            <p>Welcome, {{ user }}. Thanks for logging in.</p>
-        {% else %}
-            <p>Welcome, new user. Please log in.</p>
-        {% endif %}
-        
+    <div class="col-md-12">        
         {% for article in articles %}
             <h2 class="post-title">
                 <a href="{% url 'blog:article' username=article.author.username slug=article.slug %}">{{ article.title }}</a>
@@ -16,7 +11,7 @@
             <p class="lead">
                 by <a href="{% url 'blog:user' username=article.author.username %}">{{ article.author }}</a> 
             </p>
-            <p><span class="glyphicon glyphicon-time"></span> Posted on {{ article.created}}</p>
+            <p><span class="glyphicon glyphicon-time"></span> Posted on {{ article.created|date:'Y/m/d' }} ({{ article.created|naturalday:'h:i' }})</p>
             <hr>
         {% endfor %}
 

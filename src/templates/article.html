@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% block title %}Article{% endblock title %}
 {% block row_content  %}
     <!-- Blog Post Content Column -->
@@ -10,15 +11,22 @@
         <p class="lead">
             by <a href="{% url 'blog:user' username=author %}">{{ author }}</a> 
         </p>
+        {% if request.user.username == author %}
+        <a href="{% url 'blog:article-edit' username=author slug=article.slug %}"><span class='glyphicon glyphicon-edit'></span> Edit</a>  |  
+        <a href="{% url 'blog:article-delete' username=author slug=article.slug %}"><span class='glyphicon glyphicon-remove'></span> Delete</a>
+        {% endif %}
+
     <hr>
         <!-- Date/Time -->
-        <p><span class="glyphicon glyphicon-time"></span> Posted on {{ article.created }}</p>
+        <p><span class="glyphicon glyphicon-time"></span> Posted on {{ article.created|date:'Y/m/d' }} ({{ article.created|naturalday:'h:i' }})</p>
         <hr>
         <!-- Post Content -->
 
         {{ article.body|safe }}
 
         <hr>
+
+        
         <!-- Blog Comments -->
         <!-- Comments Form -->
         <div class="well">

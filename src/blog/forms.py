@@ -1,13 +1,12 @@
 from django_summernote.widgets import SummernoteWidget
 from django import forms
-
-from accounts.models import User
 from .models import Article
 
 
 class NewArticleForm(forms.ModelForm):
-    def __init__(self, user, *args, **kwargs):
+    def __init__(self, user,edit, *args, **kwargs):
         self.user = user
+        self.edit = edit
         
         super().__init__(*args, **kwargs)
 
@@ -17,9 +16,10 @@ class NewArticleForm(forms.ModelForm):
 
         # This validation means that the user cant have the same slug for multiple articles
         # But users can have articles with the same slug
-        if Article.objects.filter(slug=cleaned_data['slug'],author=self.user.pk).exists():
-            raise forms.ValidationError({'slug': ["Article with this slug already exists.",]})            
-        return cleaned_data
+        if not self.edit:
+            if Article.objects.filter(slug=cleaned_data['slug'],author=self.user.pk).exists():
+                raise forms.ValidationError({'slug': ["Article with this slug already exists.",]})            
+            return cleaned_data
 
 
     class Meta:

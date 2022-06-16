@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     # Third party apps
     'django_summernote',
     'debug_toolbar',
+    'django_cleanup.apps.CleanupConfig',
     
 ]
 

@@ -11,7 +11,7 @@
             <p class="lead">
                 by <a href="{% url 'blog:user' username=article.author.username %}">{{ article.author }}</a> 
             </p>
-            <p><span class="glyphicon glyphicon-time"></span> Posted on {{ article.created|date:'Y/m/d' }} ({{ article.created|naturalday:'h:i' }})</p>
+            <p><span class="glyphicon glyphicon-time"></span> Posted on {{ article.created|date:'Y/m/d' }} ({{ article.created|naturalday }})</p>
             <hr>
         {% endfor %}
 

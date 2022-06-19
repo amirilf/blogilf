@@ -18,8 +18,18 @@
 
     <hr>
         <!-- Date/Time -->
-        <p><span class="glyphicon glyphicon-time"></span> Posted on {{ article.created|date:'Y/m/d' }} ({{ article.created|naturalday }})</p>
+        <small><span class="glyphicon glyphicon-time"></span> Posted on {{ article.created|naturalday:'Y/m/d' }}</small>
         <hr>
+        
+        {% if article.get_tags %}
+            Tags: 
+        
+            {% for tag in article.get_tags  %}
+                <span class="label label-default">{{ tag }}</span>
+            {% endfor %}
+        
+            <hr>
+        {% endif %}
         <!-- Post Content -->
         <img class="img-rounded img-responsive" src="{{ article.thumbnail.url }}" alt="">
         <br>

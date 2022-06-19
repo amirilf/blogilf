@@ -17,6 +17,13 @@ class Article(models.Model):
     created    = models.DateTimeField(auto_now_add=True)
     updated    = models.DateTimeField(auto_now=True) # last update
     thumbnail  = models.ImageField(upload_to='articles')
+    tags       = models.CharField(max_length=255,null=True,blank=True)
+    
+    def get_tags(self):
+        try:
+            return self.tags.split(',')
+        except AttributeError:
+            return None
 
     class Meta:
         ordering = ('-created', )

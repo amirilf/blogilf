@@ -60,5 +60,12 @@ class NewArticleForm(forms.ModelForm):
                     'placeholder' : "Article body",
                 }
             ),
+            'tags': forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder' : "Enter tags...",
+                    'name':'tags',
+                }
+            ),
         }
-        fields = ['title','thumbnail','status','slug','body']
+        fields = ['title','thumbnail','status','slug','body','tags']

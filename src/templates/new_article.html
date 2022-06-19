@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}New article{% endblock title %}
 {% block row_content  %}
     <!-- Newpost content  -->
@@ -28,7 +29,17 @@
             </div>
             
             <hr>
-            
+
+            <div class="form-group">
+              <label for="content">Article tags:</label>
+              {{ form.tags }}
+              {% for error in form.tags.errors %}
+              <p style="color: red;margin-top: 5px;">{{ error }}</p>
+            {% endfor %}
+          </div>
+          
+          <hr>
+
             <div class="form-group">
                 <label for="content">Article thumbnail:</label>
                 {{ form.thumbnail }}
@@ -59,3 +70,27 @@
         <!-- /form -->
     </div>
 {% endblock row_content %}
+
+{% block css %}
+    <link href="{% static 'main/css/slugify.css' %}" rel="stylesheet">
+{% endblock css %}
+
+{% block script %}
+    <script src="{% static 'main/js/slugify.js' %}"></script>
+
+    <script>
+        // The DOM element you wish to replace with Tagify
+        var input = document.querySelector('input[name=tags]');
+        
+        // initialize Tagify on the above input node reference
+        new Tagify(
+          input,
+          {
+            // set regex for tags
+            pattern    : /^[a-z0-9](-?[a-z0-9])*$/,
+            // set return value format
+            originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
+          }
+        )
+    </script>
+{% endblock script %}

@@ -15,6 +15,10 @@
 
     <!-- Custom CSS -->
     <link href="{% static 'main/css/simple-blog-template.css' %}" rel="stylesheet">
+
+    {% block css %}{% endblock css %}
+
+
 </head>
 
 <body>
@@ -81,7 +85,10 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+    
+    {% block script %}{% endblock script %}
 
+  </html>
 </body>
 
 </html>

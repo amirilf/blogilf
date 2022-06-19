@@ -11,7 +11,7 @@
         <h4 class="post-title">
             <a href="{% url 'blog:article' username=author slug=article.slug %}">{{ article.title }}</a>
         </h4>
-        <small><span class="glyphicon glyphicon-time"></span> Posted on  {{ article.created|date:'Y/m/d' }} ({{ article.created|naturalday }})</small>
+        <small><span class="glyphicon glyphicon-time"></span> Posted on {{ article.created|naturalday:'Y/m/d' }}</small>
     </ul>
     <hr>
     {% endfor %}        

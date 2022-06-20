@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import User
+from .fields import NonStrippingCharField
 
 class Category(models.Model):
     slug = models.SlugField(unique=True)
@@ -17,11 +18,11 @@ class Article(models.Model):
     created    = models.DateTimeField(auto_now_add=True)
     updated    = models.DateTimeField(auto_now=True) # last update
     thumbnail  = models.ImageField(upload_to='articles')
-    tags       = models.CharField(max_length=255,null=True,blank=True)
+    tags       = NonStrippingCharField(max_length=255,null=True,blank=True)
     
     def get_tags(self):
         try:
-            return self.tags.split(',')
+            return self.tags.strip().split(' , ')
         except AttributeError:
             return None
 

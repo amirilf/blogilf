@@ -91,7 +91,7 @@
             // set regex for tags
             pattern    : /^[a-z0-9](-?[a-z0-9])*$/,
             // set return value format
-            originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
+            originalInputValueFormat: valuesArr => ' ' +  valuesArr.map(item => item.value).join(' , ') + ' '
           }
         )
     </script>

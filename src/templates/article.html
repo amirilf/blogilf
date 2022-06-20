@@ -25,7 +25,9 @@
             Tags: 
         
             {% for tag in article.get_tags  %}
-                <span class="label label-default">{{ tag }}</span>
+                <a class='article-tags' href="{% url 'blog:tag' tag %}">
+                    <span class="label label-default">{{ tag }}</span>
+                </a>
             {% endfor %}
         
             <hr>

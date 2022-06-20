@@ -81,3 +81,7 @@ nav {
 .newpost textarea {
     max-width: 100%;
 }
+
+.article-tags {
+    text-decoration: none !important;
+}

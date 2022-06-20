@@ -1,6 +1,6 @@
 from django.http import Http404
-from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
 
 from accounts.models import User
 from .models import Article
@@ -8,14 +8,16 @@ from .models import Article
 from .forms import NewArticleForm
 
 
+# Home view
 def index_view(request):
-
     articles = Article.objects.select_related('author').filter(status=True)
     context = {
         'articles':articles
     }
     return render(request,'index.html',context)
 
+
+# View an specific article
 def article_view(request,username,slug):
     article = get_object_or_404(Article,author__username=username,slug=slug)
     context = {
@@ -24,6 +26,27 @@ def article_view(request,username,slug):
     }
     return render(request,'article.html',context)
 
+
+# User public profile
+def user_view(request,username):
+    user = User.objects.get(username=username)
+    context = {
+        'user_object':user
+    }
+    return render(request,'user.html',context)
+
+
+# User articles
+def user_articles_view(request,username):
+    articles = Article.objects.filter(author__username=username)
+    context = {
+        'articles': articles,
+        'author'  : username,
+    }
+    return render(request,'user_articles.html',context)
+
+
+# Add an article
 @login_required
 def add_article_view(request):
     if request.method == 'POST':
@@ -35,27 +58,13 @@ def add_article_view(request):
             return redirect('blog:index')
     else:
         form = NewArticleForm(request.user,False)
-    
-    return render(request, 'new_article.html', {'form': form})
-
-def user_view(request,username):
-    user = User.objects.get(username=username)
     context = {
-        'user_object':user
+        'form': form
     }
-    return render(request,'user.html',context)
-
-def user_articles_view(request,username):
-
-    articles = Article.objects.filter(author__username=username)
-
-    context = {
-        'articles': articles,
-        'author'  : username,
-    }
-    return render(request,'user_articles.html',context)
+    return render(request, 'new_article.html', context)
 
 
+# Edit the article
 def edit_article_view(request,username,slug):
     if request.user.username == username:
         
@@ -78,6 +87,8 @@ def edit_article_view(request,username,slug):
         return render(request,'edit_article.html',context)
     raise Http404()
 
+
+# Delete the article
 def delete_article_view(request,username,slug):
     if request.user.username == username:
         
@@ -89,3 +100,12 @@ def delete_article_view(request,username,slug):
         else:
             return render(request,'delete_article.html')
     raise Http404()
+
+
+def tag_view(request,slug):
+    articles = get_list_or_404(Article,tags__contains=f' {slug} ')
+    context = {
+        'tag' : slug,
+        'articles':articles,
+    }
+    return render(request,'tag.html',context)

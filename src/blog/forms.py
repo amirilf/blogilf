@@ -5,8 +5,12 @@ from .models import Article
 
 class NewArticleForm(forms.ModelForm):
     def __init__(self, user,edit, *args, **kwargs):
+        super(NewArticleForm, self).__init__(*args, **kwargs)
+        self.fields['tags'].strip = False
         self.user = user
         self.edit = edit
+
+
         
         super().__init__(*args, **kwargs)
 

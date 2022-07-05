@@ -27,14 +27,6 @@ def article_view(request,username,slug):
     return render(request,'article.html',context)
 
 
-# User public profile
-def user_view(request,username):
-    user = User.objects.get(username=username)
-    context = {
-        'user_object':user
-    }
-    return render(request,'user.html',context)
-
 
 # User articles
 def user_articles_view(request,username):
@@ -55,7 +47,7 @@ def add_article_view(request):
             new_article = form.save(commit=False)
             new_article.author = User.objects.get(pk=request.user.pk) 
             form.save()
-            return redirect('blog:index')
+            return redirect('blog:articles')
     else:
         form = NewArticleForm(request.user,False)
     context = {

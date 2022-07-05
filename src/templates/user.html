@@ -33,7 +33,7 @@
     {% endfor %}
 
     {% if user_object.articles.all|length > 2 %}
-    <a href='{% url 'blog:user-articles' username=user_object.username %}'><span class="glyphicon glyphicon-triangle-right"></span> all articles</a>    
+    <a href='{% url 'accounts:user-articles' username=user_object.username %}'><span class="glyphicon glyphicon-triangle-right"></span> all articles</a>    
     {% endif %}        
 </li>
 {% endblock row_content %}

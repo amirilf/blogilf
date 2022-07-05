@@ -20,8 +20,10 @@ urlpatterns = [
     path('__debug__/', include('debug_toolbar.urls')),
     path('admin/', admin.site.urls),
     path('summernote/', include('django_summernote.urls')),
-    path('accounts/', include('accounts.urls')),
-    path('', include('blog.urls')),
+    
+    path('', include('accounts.urls')),
+    
+    path('articles/', include('blog.urls')),
 ]
 
 

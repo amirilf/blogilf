@@ -5,13 +5,17 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
 from django.utils.http import is_safe_url
 from django.conf import settings
-
+from .models import User
 
 # profile
 
-@login_required
-def profile_view(request):
-    return HttpResponse('profile')
+def profile_view(request,username):
+    user_object = User.objects.get(username=username)
+    context = {
+        'user_object':user_object
+    }
+    return render(request,'user.html',context)
+
 
 
 
@@ -44,7 +48,7 @@ def login_view(request):
         # GET method
         if request.user.is_authenticated:
             # It's a logged in user so there is no need to show login page
-            return redirect('blog:index')
+            return redirect('blog:articles')
         else:
             # It's an anonymous user
             return render(request, 'login.html')
@@ -58,7 +62,7 @@ def sign_up_view(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('blog:index')
+            return redirect('blog:articles')
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
@@ -66,5 +70,6 @@ def sign_up_view(request):
 def logout_view(request):
     if request.user.is_authenticated:
         logout(request)
-        return redirect('blog:index')
+        return redirect('blog:articles')
     raise Http404
+

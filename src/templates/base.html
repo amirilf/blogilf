@@ -39,22 +39,22 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    {% if user.is_authenticated %}
+                    {% if request.user.is_authenticated %}
                         <li>
-                            <a title="New Article" href="/new"><span class='glyphicon glyphicon-plus'></span> New</a>
+                            <a title="New Article" href="{% url 'blog:new-article' %}"><span class='glyphicon glyphicon-plus'></span> New</a>
                         </li>
                         <li>
-                            <a title="Profile" href="/accounts/profile"><span class='glyphicon glyphicon-user'></span> Profile</a>
+                            <a title="Profile" href="/profile"><span class='glyphicon glyphicon-user'></span> Profile</a>
                         </li>
                         <li>
-                            <a title="Logout" href="/accounts/logout"><span class='glyphicon glyphicon-log-out'></span></a>
+                            <a title="Logout" href="/logout"><span class='glyphicon glyphicon-log-out'></span></a>
                         </li>
                     {% else %}
                         <li>
-                            <a title="Login" href="/accounts/login"><span class='glyphicon glyphicon-log-in'></span> Login</a>
+                            <a title="Login" href="/login"><span class='glyphicon glyphicon-log-in'></span> Login</a>
                         </li>
                         <li>
-                            <a title="Sign up" href="/accounts/signup"><span class='glyphicon glyphicon-new-window'></span> Sign up</a>
+                            <a title="Sign up" href="/signup"><span class='glyphicon glyphicon-new-window'></span> Sign up</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -68,8 +68,9 @@
     <div class="container">
 
         <div class="row">
-            {% if user.is_authenticated %}
-                <p>Welcome, {{ user }}. Thanks for logging in.</p>
+            {% if request.user.is_authenticated %}
+                <p>Welcome, {{ request.user }}. Thanks for logging in.</p>
+                <hr>
             {% endif %}
 
             {% block row_content %}{% endblock row_content %}

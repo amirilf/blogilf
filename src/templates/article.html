@@ -9,7 +9,7 @@
         <h1 class="post-title">{{ article.title }}</h1>
         <!-- Author -->
         <p class="lead">
-            by <a href="{% url 'blog:user' username=author %}">{{ author }}</a> 
+            by <a href="{% url 'accounts:profile' username=author %}">{{ author }}</a> 
         </p>
         {% if request.user.username == author %}
         <a href="{% url 'blog:article-edit' username=author slug=article.slug %}"><span class='glyphicon glyphicon-edit'></span> Edit</a>  |  

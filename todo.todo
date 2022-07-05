@@ -1,5 +1,6 @@
 validate InputFile type and size
-add user profiles for each user with its username
 add reCAPTCHA to forms
 paginatoin for article lists
 add css for delete article buttons
+add following and followers views
+add get_user_model

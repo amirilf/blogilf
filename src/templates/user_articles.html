@@ -4,7 +4,7 @@
 {% block row_content  %}
 
 <li>
-    <h3>Articles by <a href="{% url 'blog:user' username=author %}">{{ author }}</a>:</h3>
+    <h3>Articles by <a href="{% url 'accounts:profile' username=author %}">{{ author }}</a>:</h3>
     <hr>
     {% for article in articles.all %}
     <ul>

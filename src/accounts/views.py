@@ -1,16 +1,13 @@
+from django.http import Http404
 from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate,logout, login
-from .forms import SignUpForm
-from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponse
+from django.contrib.auth import authenticate,logout, login,get_user_model
 from django.utils.http import is_safe_url
-from django.conf import settings
-from .models import User
+from .forms import SignUpForm
 
 # profile
 
 def profile_view(request,username):
-    user_object = User.objects.get(username=username)
+    user_object = get_user_model().objects.get(username=username)
     context = {
         'user_object':user_object
     }
@@ -25,12 +22,12 @@ def profile_view(request,username):
 def safe_redirect_after_login(request):
     next = request.GET.get("next", None)
     if next is None:
-        return redirect(settings.LOGIN_REDIRECT_URL)
+        return redirect('accounts:login')
     elif not is_safe_url(
             url=next,
             allowed_hosts={request.get_host()},
             require_https=request.is_secure()):
-        return redirect(settings.LOGIN_REDIRECT_URL)
+        return redirect('accounts:login')
     else:
         return redirect(next)
 

@@ -1,12 +1,12 @@
 from django.db import models
-from accounts.models import User
+from django.contrib.auth import get_user_model
 from .fields import NonStrippingCharField
 
 class Category(models.Model):
     slug = models.SlugField(unique=True)
 
 class Article(models.Model):
-    author     = models.ForeignKey(User,on_delete=models.CASCADE,related_name='articles')
+    author     = models.ForeignKey(get_user_model(),on_delete=models.CASCADE,related_name='articles')
     category   = models.ManyToManyField(Category,blank=True,related_name='categories') # article categories
 
     # Slug is unique but we set it up manually in the forms.py

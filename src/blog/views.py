@@ -6,8 +6,16 @@ from .decorators import user_is_author
 from .forms import NewArticleForm
 
 
-# Home view
-def index_view(request):
+# Articles view
+def articles_view(request):
+    
+    print(request.GET.get('name'))
+    # date
+    # new to old nto
+    # old to new otn
+    # most viewed mv
+    # most favorite mf
+
     articles = Article.objects.select_related('author').filter(status=True)
     context = {
         'articles':articles

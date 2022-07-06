@@ -1,6 +1,6 @@
 from django.urls import path,re_path
 from .views import (
-    index_view,
+    articles_view,
     article_view,
     add_article_view,
     edit_article_view,
@@ -12,7 +12,7 @@ from .views import (
 app_name = 'blog'
 
 urlpatterns = [
-    # path('', index_view , name='index'),
+    # path('', articles_view , name='index'),
 
     # path('new', add_article_view, name='new-article'),
 
@@ -36,7 +36,7 @@ urlpatterns = [
     re_path('^(?P<username>[\w.@+-]+)/(?P<slug>[-\w]+)/like/$',article_view,name='article-like'),
 
     # lists
-    path('',index_view, name='articles'),
+    path('',articles_view, name='articles'),
     re_path('^(?P<username>[\w.@+-]+)/$', user_articles_view,name='user-articles'),
     re_path('^tag/(?P<slug>[a-z0-9](-?[a-z0-9])*)$',tag_view, name='tag'),
 

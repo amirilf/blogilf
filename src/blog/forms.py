@@ -9,9 +9,7 @@ class NewArticleForm(forms.ModelForm):
         self.fields['tags'].strip = False
         self.user = user
         self.edit = edit
-
-
-        
+ 
         super().__init__(*args, **kwargs)
 
     def clean(self):

@@ -1,19 +1,68 @@
 from django.http import Http404
-from django.shortcuts import render,redirect
+from django.shortcuts import get_list_or_404, get_object_or_404, render,redirect
 from django.contrib.auth import authenticate,logout, login,get_user_model
 from django.utils.http import is_safe_url
 from .forms import SignUpForm
+from .models import UserFollowing
+
+    
 
 # profile
 
 def profile_view(request,username):
-    user_object = get_user_model().objects.get(username=username)
+    
+    user_object = get_object_or_404(get_user_model(),username=username)
+    btn = 'Follow'
+    
+    if request.user.is_authenticated:
+        
+        if request.method == 'POST':
+
+            object = UserFollowing.objects.get_or_create(user_id=request.user,following_user_id=user_object)
+        
+            if object[1]:
+                # following object created
+                btn = 'Unfollow'
+            else:
+                # exists
+                object[0].delete()
+        
+        # GET
+        else:
+
+            following_object = UserFollowing.objects.filter(user_id=request.user,following_user_id=user_object).exists()
+            if following_object:
+                btn = 'Unfollow'
+
     context = {
-        'user_object':user_object
+        'user_object':user_object,
+        'submit_btn' : btn
     }
+
     return render(request,'user.html',context)
 
 
+def following_view(request,username):
+    user_object = get_object_or_404(get_user_model(),username=username)
+    following_objects = UserFollowing.objects.filter(user_id=user_object)
+
+    context = {
+        'user_object':user_object,
+        'following_objects' : following_objects
+    }
+
+    return render(request,'following.html',context)
+
+def followers_view(request,username):
+    user_object = get_object_or_404(get_user_model(),username=username)
+    followers_objects = UserFollowing.objects.filter(user_id=user_object)
+
+    context = {
+        'user_object':user_object,
+        'followers_objects' : followers_objects
+    }
+
+    return render(request,'following.html',context)
 
 
 # auth

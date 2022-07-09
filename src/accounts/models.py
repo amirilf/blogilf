@@ -6,6 +6,10 @@ class User(AbstractUser):
     bio = models.TextField(max_length=255,null=True)
     email = models.EmailField(unique=True)
 
+    def followers_list(self):
+        return self.objects.values('followers__user_id')
+
+
 class UserFollowing(models.Model):
     user_id = models.ForeignKey(User, related_name="following",on_delete=models.CASCADE)
     following_user_id = models.ForeignKey(User, related_name="followers",on_delete=models.CASCADE)

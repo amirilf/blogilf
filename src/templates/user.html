@@ -18,6 +18,24 @@
         <p>Date joined : {{ user_object.date_joined|date:'F d Y' }}</p>
     </ul>
 </li>
+<li>
+    <a href="{% url 'accounts:following' username=user_object.username %}">
+        <button class="btn btn-default">Following</button>
+    </a>
+
+    <a href="{% url 'accounts:followers' username=user_object.username %}">
+        <button class="btn btn-default">Followers</button>
+    </a>
+</li>
+
+<li>    
+<!-- form -->
+    <form method="post" class="follow-form">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-info">{{ submit_btn }}</button>
+    </form>
+    <!-- /form -->
+</li>
 
 <li>
     <h3>Last Articles by {{ user_object.username }}:</h3>
@@ -32,8 +50,8 @@
     <hr>
     {% endfor %}
 
-    {% if user_object.articles.all|length > 2 %}
-    <a href='{% url 'accounts:user-articles' username=user_object.username %}'><span class="glyphicon glyphicon-triangle-right"></span> all articles</a>    
+    {% if user_object.articles.count > 2 %}
+        <a href="{% url 'blog:user-articles' username=user_object.username %}""><span class="glyphicon glyphicon-triangle-right"></span> all articles</a>    
     {% endif %}        
 </li>
 {% endblock row_content %}

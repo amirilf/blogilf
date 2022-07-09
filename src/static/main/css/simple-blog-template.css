@@ -10,6 +10,10 @@ body {
     }
 }
 
+a {
+    text-decoration: none !important;
+}
+
 
 /* navigation */
 
@@ -84,4 +88,8 @@ nav {
 
 .article-tags {
     text-decoration: none !important;
+}
+
+.follow-form {
+    margin-top: 20px;
 }

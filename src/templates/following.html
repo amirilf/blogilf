@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}{{ user_object.username }} | Following{% endblock title %}
+{% block row_content  %}
+
+<li>
+    <h3>List of people who <a href="{% url 'accounts:profile' username=user_object.username %}">{{ user_object.username }}</a> follows :</h3>
+
+    <hr>
+
+    {% for username in following_objects %}
+        
+        <ul>            
+            <h4 class="post-title ">
+                <a href="{% url 'accounts:profile' username=username %}">{{ username }}</a>
+            </h4>        
+        </ul>
+
+        <hr>
+
+    {% empty %}
+        There is no one that {{ user_object.username|title }} wants to follow 😎
+    {% endfor %}
+
+</li>
+
+{% endblock row_content %}

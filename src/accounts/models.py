@@ -1,13 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+
 class User(AbstractUser):
     birth_date = models.DateField(null=True)
     bio = models.TextField(max_length=255,null=True)
     email = models.EmailField(unique=True)
-
-    def followers_list(self):
-        return self.objects.values('followers__user_id')
 
 
 class UserFollowing(models.Model):

@@ -3,8 +3,8 @@ from django.shortcuts import get_list_or_404, get_object_or_404, render,redirect
 from django.contrib.auth import authenticate,logout, login,get_user_model
 from django.utils.http import is_safe_url
 from .forms import SignUpForm
-from .models import UserFollowing
-
+from .models import User, UserFollowing
+from django.db.models import F
     
 
 # profile
@@ -12,12 +12,12 @@ from .models import UserFollowing
 def profile_view(request,username):
     
     user_object = get_object_or_404(get_user_model(),username=username)
-    btn = 'Follow'
+    btn = str
     
     if request.user.is_authenticated:
         
         if request.method == 'POST':
-
+            
             object = UserFollowing.objects.get_or_create(user_id=request.user,following_user_id=user_object)
         
             if object[1]:
@@ -33,6 +33,7 @@ def profile_view(request,username):
             following_object = UserFollowing.objects.filter(user_id=request.user,following_user_id=user_object).exists()
             if following_object:
                 btn = 'Unfollow'
+        
 
     context = {
         'user_object':user_object,
@@ -44,7 +45,7 @@ def profile_view(request,username):
 
 def following_view(request,username):
     user_object = get_object_or_404(get_user_model(),username=username)
-    following_objects = UserFollowing.objects.filter(user_id=user_object)
+    following_objects = get_user_model().objects.filter(followers__user_id=user_object).only('username')
 
     context = {
         'user_object':user_object,
@@ -53,16 +54,17 @@ def following_view(request,username):
 
     return render(request,'following.html',context)
 
+
 def followers_view(request,username):
     user_object = get_object_or_404(get_user_model(),username=username)
-    followers_objects = UserFollowing.objects.filter(user_id=user_object)
+    followers_objects = get_user_model().objects.filter(following__following_user_id=user_object).only('username')
 
     context = {
         'user_object':user_object,
         'followers_objects' : followers_objects
     }
 
-    return render(request,'following.html',context)
+    return render(request,'followers.html',context)
 
 
 # auth

@@ -2,56 +2,75 @@
 {% load humanize %}
 {% block title %}{{ user_object.username }}{% endblock title %}
 {% block row_content  %}
-<li>
-    <h3>User information:</h3>
-    <ul><p>Username : {{ user_object.username }}</p></ul>
-    <ul>
-        {% if user_object.get_full_name %}
-        <p>Name : {{ user_object.get_full_name }}</p>
-        {% endif %}    </ul>
-    <ul>
-        {% if user_object.bio %}
-        <p> Bio : {{ user_object.bio }}</p>
-        {% endif %}        
-    </ul>
-    <ul>
-        <p>Date joined : {{ user_object.date_joined|date:'F d Y' }}</p>
-    </ul>
-</li>
-<li>
-    <a href="{% url 'accounts:following' username=user_object.username %}">
-        <button class="btn btn-default">Following</button>
-    </a>
+<div class="row">
 
-    <a href="{% url 'accounts:followers' username=user_object.username %}">
-        <button class="btn btn-default">Followers</button>
-    </a>
-</li>
+    <!-- Col 6 -->
+    <div class="col-sm-6">
+        <li>
+            <h3>User information:</h3>
 
-<li>    
-<!-- form -->
-    <form method="post" class="follow-form">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-info">{{ submit_btn }}</button>
-    </form>
-    <!-- /form -->
-</li>
+            <ul><p>Username : {{ user_object.username }}</p></ul>
+            <ul>
+                {% if user_object.get_full_name %}
+                <p>Name : {{ user_object.get_full_name }}</p>
+                {% endif %}    </ul>
+            <ul>
+                {% if user_object.bio %}
+                <p> Bio : {{ user_object.bio }}</p>
+                {% endif %}        
+            </ul>
+            <ul>
+                <p>Date joined : {{ user_object.date_joined|date:'F d Y' }}</p>
+            </ul>
+        </li>
+
+        <li>
+            <a href="{% url 'accounts:following' username=user_object.username %}">
+                <button class="btn btn-default">Following</button>
+            </a>
+        
+            <a href="{% url 'accounts:followers' username=user_object.username %}">
+                <button class="btn btn-default">Followers</button>
+            </a>
+        </li>
+    
+        {% if submit_btn %}
+            <li>    
+                <!-- form -->
+                <form method="post" class="follow-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-info">{{ submit_btn }}</button>
+                </form>
+                <!-- /form -->
+            </li>
+        {% endif %}
+     </div>
+
+    <!-- Col 6 -->
+    <div class="col-sm-6">
+        <img class='img-rounded img-responsive' src="https://www.w3schools.com/html/pic_trulli.jpg" alt="">
+    </div>
+
+</div>
 
 <li>
     <h3>Last Articles by {{ user_object.username }}:</h3>
+
     <hr>
+
     {% for article in user_object.articles.all|slice:":2" %}
-    <ul>
-        <h4 class="post-title">
-            <a href="{% url 'blog:article' username=user_object.username slug=article.slug %}">{{ article.title }}</a>
-        </h4>
-        <small><span class="glyphicon glyphicon-time"></span> Posted on  {{ article.created|naturalday:'Y/m/d' }}</small>
-    </ul>
-    <hr>
+        <ul>
+            <h4 class="post-title">
+                <a href="{% url 'blog:article' username=user_object.username slug=article.slug %}">{{ article.title }}</a>
+            </h4>
+            <small><span class="glyphicon glyphicon-time"></span> Posted on  {{ article.created|naturalday:'Y/m/d' }}</small>
+        </ul>
+        <hr>
     {% endfor %}
 
     {% if user_object.articles.count > 2 %}
-        <a href="{% url 'blog:user-articles' username=user_object.username %}""><span class="glyphicon glyphicon-triangle-right"></span> all articles</a>    
+        <a href="{% url 'blog:user-articles' username=user_object.username %}'"><span class="glyphicon glyphicon-triangle-right"></span> all articles</a>    
     {% endif %}        
 </li>
+
 {% endblock row_content %}

@@ -19,6 +19,8 @@
     <hr>
         <!-- Date/Time -->
         <small><span class="glyphicon glyphicon-time"></span> Posted on {{ article.created|naturalday:'Y/m/d' }}</small>
+        <br>
+        <small><span class="glyphicon glyphicon-eye-open "></span> Views : {{ article.views }}</small>
         <hr>
         
         {% if article.get_tags %}

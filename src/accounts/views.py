@@ -1,10 +1,9 @@
 from django.http import Http404
-from django.shortcuts import get_list_or_404, get_object_or_404, render,redirect
+from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth import authenticate,logout, login,get_user_model
 from django.utils.http import is_safe_url
 from .forms import SignUpForm
-from .models import User, UserFollowing
-from django.db.models import F
+from .models import UserFollowing
     
 
 # profile
@@ -15,7 +14,7 @@ def profile_view(request,username):
     btn = str
     
     if request.user.is_authenticated:
-        
+        btn = 'Follow'
         if request.method == 'POST':
             
             object = UserFollowing.objects.get_or_create(user_id=request.user,following_user_id=user_object)
@@ -24,16 +23,14 @@ def profile_view(request,username):
                 # following object created
                 btn = 'Unfollow'
             else:
-                # exists
+                # following object exists so delete
                 object[0].delete()
         
         # GET
         else:
-
             following_object = UserFollowing.objects.filter(user_id=request.user,following_user_id=user_object).exists()
             if following_object:
                 btn = 'Unfollow'
-        
 
     context = {
         'user_object':user_object,
@@ -67,8 +64,9 @@ def followers_view(request,username):
     return render(request,'followers.html',context)
 
 
-# auth
 
+
+# auth stuff
 
 def safe_redirect_after_login(request):
     next = request.GET.get("next", None)
@@ -120,4 +118,3 @@ def logout_view(request):
         logout(request)
         return redirect('blog:articles')
     raise Http404
-

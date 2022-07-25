@@ -44,7 +44,7 @@
                             <a title="New Article" href="{% url 'blog:new-article' %}"><span class='glyphicon glyphicon-plus'></span> New</a>
                         </li>
                         <li>
-                            <a title="Profile" href="/profile"><span class='glyphicon glyphicon-user'></span> Profile</a>
+                            <a title="Profile" href="{% url 'accounts:profile' username=request.user.username %}"><span class='glyphicon glyphicon-user'></span> Profile</a>
                         </li>
                         <li>
                             <a title="Logout" href="/logout"><span class='glyphicon glyphicon-log-out'></span></a>

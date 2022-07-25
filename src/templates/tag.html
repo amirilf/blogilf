@@ -13,7 +13,9 @@
                 by <a href="{% url 'accounts:profile' username=article.author.username %}">{{ article.author }}</a> 
             </p>
             <small><span class="glyphicon glyphicon-time"></span> Posted on {{ article.created|naturalday:'Y/m/d' }}</small>
-            <hr>
+            <br>
+            <small><span class="glyphicon glyphicon-eye-open "></span> Views : {{ article.views }}</small>
+                <hr>
         {% endfor %}
 
         <!-- Pager -->

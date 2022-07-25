@@ -2,11 +2,6 @@ run tests
 validate InputFile type and size
 add reCAPTCHA to forms
 add css for delete article buttons
-add following and followers views
 improve article form logic in blog/forms.py
-Add view counter
 paginatoin for article lists
-
-add followers and following pages and config with views
-add profile for users
 check queries from debug-toolbar for pages

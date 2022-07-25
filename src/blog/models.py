@@ -19,7 +19,8 @@ class Article(models.Model):
     updated    = models.DateTimeField(auto_now=True) # last update
     thumbnail  = models.ImageField(upload_to='articles')
     tags       = NonStrippingCharField(max_length=255,null=True,blank=True)
-    
+    views      = models.PositiveBigIntegerField(default=0)
+
     def get_tags(self):
         try:
             return self.tags.strip().split(' , ')

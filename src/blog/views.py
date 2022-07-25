@@ -26,6 +26,10 @@ def articles_view(request):
 # View an specific article
 def article_view(request,username,slug):
     article = get_object_or_404(Article,author__username=username,slug=slug)
+    
+    article.views += 1
+    article.save()
+
     context = {
         'article': article,
         'author' : username

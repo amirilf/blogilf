@@ -1,0 +1,5 @@
+Package            Version
+------------------ -----------
+Django             4.1.1
+django-allauth     0.51.0
+pip                22.2.2

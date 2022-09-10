@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+  web:
+    user: 1000:1000
+    build: .
+    working_dir: /code/src
+    image: blogilf:v1
+    container_name: blogilf
+    command: python3.8 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+    depends_on:
+      - db

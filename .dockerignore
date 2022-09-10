@@ -1,0 +1,13 @@
+# Envs
+env/
+venv/
+
+# Compiled 
+src/**/*.pyc
+src/**/*__pycache__
+
+# Git
+.gitignore
+
+# Scripts
+start.py
